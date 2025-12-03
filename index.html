@@ -5,23 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vikrant's Mini Projects</title>
 
-  <!-- -----------------  STYLES  ----------------- -->
   <style>
     /* Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+    
+    /* Font Awesome for Icons */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
     /* ---- CSS Variables ---- */
     :root {
-      --bg-dark: #0d1117;
-      --card-dark: #161b22;
-      --text-dark: #e6edf3;
+      --bg-dark: #0f172a; /* Slate 900 */
+      --card-dark: #1e293b; /* Slate 800 */
+      --text-dark: #e2e8f0; /* Slate 200 */
 
-      --bg-light: #f4f6f9;
+      --bg-light: #f8fafc; /* Slate 50 */
       --card-light: #ffffff;
-      --text-light: #101215;
+      --text-light: #0f172a;
 
-      --accent: #58a6ff;
-      --shadow: rgba(0, 0, 0, 0.35);
+      --accent: #22c55e; /* Emerald 500 */
+      --accent-hover: #10b981; /* Emerald 600 for hover */
+      --shadow: rgba(0, 0, 0, 0.45);
     }
 
     /* ---- Reset ---- */
@@ -29,142 +32,287 @@
 
     /* ---- Base ---- */
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg-dark);
       color: var(--text-dark);
-      padding: 2rem 1rem 4rem;
+      padding: 3rem 1rem 6rem;
       transition: background 0.3s, color 0.3s;
+      line-height: 1.6;
     }
     body.light { background: var(--bg-light); color: var(--text-light); }
-    a { color: inherit; }
+    a { color: inherit; text-decoration: none; }
 
     /* ---- Header ---- */
     header {
       display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem; max-width: 1100px; margin: 0 auto 3rem;
-      font-family: 'Orbitron', sans-serif;
+      flex-wrap: wrap; gap: 1.5rem; max-width: 1200px; margin: 0 auto 4rem;
+      border-bottom: 2px solid var(--card-dark);
+      padding-bottom: 1.5rem;
     }
-    header h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); }
+    body.light header { border-bottom-color: #e2e8f0; }
+    
+    header h1 { 
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      color: var(--accent);
+      letter-spacing: -1px;
+    }
+    header h1 span { color: var(--text-dark); transition: color 0.3s; }
+    body.light header h1 span { color: var(--text-light); }
+
 
     #themeToggle {
-      appearance: none; border: none; background: var(--accent); color: #0d1117;
-      font-weight: 600; padding: 0.55rem 1.2rem; border-radius: 50px;
-      cursor: pointer; transition: opacity 0.25s;
+      appearance: none; border: none; background: var(--accent); color: var(--bg-dark);
+      font-weight: 600; padding: 0.6rem 1.4rem; border-radius: 50px;
+      cursor: pointer; transition: background 0.25s;
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    #themeToggle:hover { opacity: 0.85; }
+    #themeToggle:hover { background: var(--accent-hover); }
 
     /* ---- Project Grid ---- */
     .projects {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem; max-width: 1100px; margin: 0 auto;
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem; 
+      max-width: 1200px; 
+      margin: 0 auto;
     }
     .card {
-      background: var(--card-dark); border-radius: 1rem; overflow: hidden;
-      box-shadow: 0 6px 18px var(--shadow);
-      transition: transform .35s cubic-bezier(.25,.8,.25,1), box-shadow .35s;
+      background: var(--card-dark); 
+      border-radius: 1.25rem; 
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform .4s cubic-bezier(.25,.8,.25,1), box-shadow .4s;
       cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    body.light .card { background: var(--card-light); }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(88,166,255,.35); }
+    body.light .card { 
+      background: var(--card-light); 
+      border-color: #e2e8f0;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+    .card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: 0 15px 40px rgba(34, 197, 94, 0.3); 
+    }
+    body.light .card:hover {
+        box-shadow: 0 15px 40px rgba(34, 197, 94, 0.15); 
+    }
 
-    .card img { width: 100%; height: 200px; object-fit: cover; }
-    .card-content { padding: 1.25rem 1.5rem 1.75rem; }
-    .card h3 { color: var(--accent); font-size: 1.35rem; margin-bottom: 0.65rem; }
-    .card p { line-height: 1.55; margin-bottom: 0.85rem; }
+    .card img { 
+      width: 100%; 
+      height: 220px; 
+      object-fit: cover;
+      transition: transform 0.4s ease-in-out;
+    }
+    .card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .card-content { padding: 1.5rem; }
+    
+    .card h3 { 
+      color: var(--accent); 
+      font-size: 1.5rem; 
+      margin-bottom: 0.75rem;
+    }
+    .card p { font-size: 0.95rem; margin-bottom: 1rem; color: #94a3b8; }
+    body.light .card p { color: #475569; }
 
+    .tag-container { margin-bottom: 1rem; }
     .tag {
-      display: inline-block; background: var(--accent); color: #0d1117;
-      padding: 0.15rem 0.6rem; border-radius: 6px; font-size: 0.75rem;
-      margin-right: 0.4rem; margin-bottom: 0.4rem; font-weight: 600;
+      display: inline-block; 
+      background: rgba(34, 197, 94, 0.2); /* Accent with opacity */
+      color: var(--accent);
+      padding: 0.2rem 0.75rem; 
+      border-radius: 9999px; /* Pill shape */
+      font-size: 0.8rem;
+      margin-right: 0.5rem; 
+      margin-bottom: 0.5rem; 
+      font-weight: 500;
+      border: 1px solid var(--accent);
     }
 
     /* ---- Links / Buttons ---- */
     .links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .links a,
     .links button {
-      background: var(--accent); color: #0d1117; font-weight: 600;
-      padding: 0.45rem 0.95rem; border-radius: 8px; font-size: 0.9rem;
-      text-decoration: none; transition: background 0.25s; border: none; cursor: pointer;
+      background: var(--accent); 
+      color: var(--bg-dark); 
+      font-weight: 600;
+      padding: 0.5rem 1.1rem; 
+      border-radius: 0.75rem; 
+      font-size: 0.9rem;
+      text-decoration: none; 
+      transition: background 0.25s, color 0.25s; 
+      border: none; 
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
     .links a:hover,
-    .links button:hover { background: #1f6feb; color: #fff; }
+    .links button:hover { 
+      background: var(--accent-hover);
+      color: white; 
+    }
 
     /* ---- Modal ---- */
     .modal {
-      position: fixed; inset: 0; background: rgba(0,0,0,.6);
+      position: fixed; inset: 0; background: rgba(0,0,0,.75);
+      backdrop-filter: blur(5px);
       display: flex; align-items: center; justify-content: center;
-      visibility: hidden; opacity: 0; transition: opacity .25s, visibility 0s .25s;
+      visibility: hidden; opacity: 0; transition: opacity .3s, visibility 0s .3s;
       padding: 1rem; z-index: 1000;
     }
     .modal.show { visibility: visible; opacity: 1; transition-delay: 0s; }
     .modal-card {
-      background: var(--card-dark); border-radius: 1.25rem; max-width: 600px; width: 100%;
-      overflow: hidden; box-shadow: 0 6px 30px var(--shadow); position: relative;
+      background: var(--card-dark); border-radius: 1.5rem; max-width: 650px; width: 100%;
+      overflow: hidden; box-shadow: 0 15px 45px var(--shadow); position: relative;
+      transform: scale(0.9); transition: transform 0.3s;
     }
+    .modal.show .modal-card { transform: scale(1); }
     body.light .modal-card { background: var(--card-light); }
-    .modal-card img { width: 100%; height: 260px; object-fit: cover; }
-    .modal-content { padding: 1.5rem 2rem 2rem; }
-    .close-btn {
-      position: absolute; top: 12px; right: 18px; font-size: 1.8rem; background: none;
-      border: none; color: var(--accent); cursor: pointer; line-height: 1;
+    
+    .modal-card img { 
+        width: 100%; 
+        height: auto; 
+        max-height: 350px; 
+        object-fit: cover; 
     }
+    
+    .modal-content { padding: 2rem; }
+    .modal-content h2 { color: var(--accent); margin-bottom: 0.5rem; }
+    
+    .close-btn {
+      position: absolute; top: 15px; right: 15px; font-size: 1.5rem; background: none;
+      border: none; color: var(--accent); cursor: pointer; line-height: 1;
+      padding: 0.5rem; border-radius: 50%; backdrop-filter: blur(5px);
+      background: rgba(0,0,0,0.3);
+    }
+    body.light .close-btn { background: rgba(255,255,255,0.3); color: var(--accent-hover); }
 
     /* ---- Footer ---- */
-    footer { text-align: center; font-size: 0.85rem; margin-top: 4rem; color: #8b949e; }
+    footer { 
+      text-align: center; 
+      font-size: 0.9rem; 
+      margin-top: 5rem; 
+      color: #94a3b8;
+    }
+    footer a { color: var(--accent); transition: color 0.25s; }
+    footer a:hover { color: var(--accent-hover); }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        header { justify-content: center; text-align: center; }
+        .modal-card { border-radius: 1rem; }
+        .modal-content { padding: 1.5rem; }
+    }
   </style>
 </head>
 <body>
-  <!-- ---------- Header ---------- -->
   <header>
-    <h1>Vikrant's Mini Projects</h1>
-    <button id="themeToggle" aria-label="Toggle theme">Light Mode</button>
+    <h1>Vikrant's <span>Electronics</span> Portfolio</h1>
+    <button id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i> Light Mode
+    </button>
   </header>
 
-  <!-- ---------- Project Grid ---------- -->
   <section class="projects" id="projectGrid">
-    <!-- Card 1 -->
+    
+    <article class="card"
+      data-title="Obstacle Avoider Rover"
+      data-category="Robotics, Arduino"
+      data-desc="A 4-wheel drive mobile robot built using an Arduino UNO and an ultrasonic sensor (HC-SR04). The rover autonomously detects obstacles in its path and changes direction to avoid them, demonstrating fundamental concepts in robotics and sensor integration."
+      data-img="rover.jpg"
+      data-links='[
+        {"text":"Code on GitHub","url":"#"},
+        {"text":"Watch Demo","url":"#"},
+        {"text":"View Image","url":"rover.jpg"}
+      ]'>
+      <img src="rover.jpg" alt="Obstacle Avoider Rover" />
+      <div class="card-content">
+        <h3>Obstacle Avoider Rover</h3>
+        <p class="tag-container">
+            <span class="tag">Robotics</span>
+            <span class="tag">Arduino UNO</span>
+            <span class="tag">HC-SR04</span>
+        </p>
+        <p>Autonomous mobile robot using ultrasonic sensing for navigation.</p>
+      </div>
+    </article>
+
+    <article class="card"
+      data-title="IoT Patient Health Monitoring"
+      data-category="IoT, Health Tech"
+      data-desc="A real-time health monitoring system that uses a temperature/humidity sensor (like DHT11) and a pulse sensor (placeholder component in the image) connected to an Arduino and an ESP module (conceptual/external for IoT) to transmit vital signs data to a cloud platform for remote access and monitoring."
+      data-img="iotpaienthealth monitoring.jpg"
+      data-links='[
+        {"text":"Code on GitHub","url":"#"},
+        {"text":"System Diagram","url":"#"},
+        {"text":"View Image","url":"iotpaienthealth monitoring.jpg"}
+      ]'>
+      <img src="iotpaienthealth monitoring.jpg" alt="IoT Patient Health Monitoring System" />
+      <div class="card-content">
+        <h3>IoT Patient Health Monitoring</h3>
+        <p class="tag-container">
+            <span class="tag">IoT</span>
+            <span class="tag">Health</span>
+            <span class="tag">Arduino</span>
+        </p>
+        <p>Real-time data collection of patient vitals for remote monitoring.</p>
+      </div>
+    </article>
+
+
     <article class="card"
       data-title="Radar System"
-      data-category="Mini Project"
-      data-desc="An ultrasonic sensor mounted on a servo scans the environment while Processing IDE renders a real-time radar display."
+      data-category="Mini Project, Visualization"
+      data-desc="An ultrasonic sensor mounted on a servo scans the environment while Processing IDE renders a real-time radar display. This project demonstrates serial communication and data visualization."
       data-img="assets/radar_system.jpg"
       data-links='[
         {"text":"Arduino Code","url":"files/simple-radarsystem.ino"},
         {"text":"Processing Sketch","url":"files/radar_system_processing.pde"},
-        {"text":"Demo","url":"radar system.jpg"}
+        {"text":"Demo Image","url":"radar system.jpg"}
       ]'>
       <img src="radae system.jpg" alt="Radar System Preview" />
       <div class="card-content">
         <h3>Radar System</h3>
-        <p><span class="tag">Mini Project</span></p>
+        <p class="tag-container">
+            <span class="tag">Visualization</span>
+            <span class="tag">Processing</span>
+            <span class="tag">Servo</span>
+        </p>
         <p>Ultrasonic + servo + Processing to create a sweeping radar visualization.</p>
       </div>
     </article>
 
-    <!-- Card 2 -->
     <article class="card"
       data-title="Basic Security System"
-      data-category="Beginners Project"
-      data-desc="A 4×4 keypad asks for a passcode. Correct entry lights an LED and rotates a servo, simulating a door lock."
+      data-category="Beginners Project, Security"
+      data-desc="A 4×4 keypad asks for a passcode. Correct entry lights an LED and rotates a servo, simulating a door lock mechanism with feedback."
       data-img="assets/security_photo.jpg"
       data-links='[
         {"text":"Arduino Code","url":"files/basic-securitysystem.ino"},
         {"text":"Watch Demo","url":"files/security_system_demo.mp4"},
-        {"text":"Demo","url":"security photo.jpg"}
+        {"text":"Demo Image","url":"security photo.jpg"}
       ]'>
       <img src="gettyimages-1413194945-640x640.jpg" alt="Security System Preview" />
       <div class="card-content">
         <h3>Basic Security System</h3>
-        <p><span class="tag">Beginners Project</span></p>
+        <p class="tag-container">
+            <span class="tag">Keypad</span>
+            <span class="tag">Security</span>
+            <span class="tag">Servo</span>
+        </p>
         <p>Keypad-controlled access with LED indicator and servo lock mechanism.</p>
       </div>
     </article>
   </section>
 
-  <!-- ---------- Modal ---------- -->
   <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
-      <button class="close-btn" aria-label="Close">&times;</button>
+      <button class="close-btn" aria-label="Close modal">&times;</button>
       <img id="modalImg" src="" alt="Project image" />
       <div class="modal-content">
         <h2 id="modalTitle"></h2>
@@ -174,24 +322,27 @@
     </div>
   </div>
 
-  <!-- ---------- Footer ---------- -->
   <footer>
-    Built with ❤️ & Arduino&nbsp;| © 2025 Vikrant Kulkarni
+     Arduino &nbsp;| © 2025 <a href="#">Vikrant Kulkarni</a>
   </footer>
 
-  <!-- -----------------  SCRIPT  ----------------- -->
   <script>
     /* ---- Theme Toggle ---- */
     const themeToggle = document.getElementById('themeToggle');
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     if (prefersLight) document.body.classList.add('light');
     updateThemeText();
+
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light');
       updateThemeText();
     });
+
     function updateThemeText() {
-      themeToggle.textContent = document.body.classList.contains('light') ? 'Dark Mode' : 'Light Mode';
+      const isLight = document.body.classList.contains('light');
+      themeToggle.innerHTML = isLight 
+        ? '<i class="fas fa-moon"></i> Dark Mode' 
+        : '<i class="fas fa-sun"></i> Light Mode';
     }
 
     /* ---- Modal Logic ---- */
@@ -212,20 +363,42 @@
 
         /* Build buttons */
         modalWrap.innerHTML = '';
+        const tags = card.querySelector('.tag-container').cloneNode(true);
+        modalDesc.prepend(tags);
+
         JSON.parse(links).forEach(obj => {
           const btn = document.createElement('button');
           btn.textContent = obj.text;
+          
+          let iconClass = '';
+          if (obj.text.includes('Code')) iconClass = 'fab fa-github';
+          else if (obj.text.includes('Demo') || obj.text.includes('Watch')) iconClass = 'fas fa-video';
+          else if (obj.text.includes('Image') || obj.text.includes('Diagram')) iconClass = 'fas fa-image';
+          
+          if (iconClass) {
+              const icon = document.createElement('i');
+              icon.className = iconClass;
+              btn.prepend(icon);
+          }
 
-          if (obj.text.toLowerCase() === 'demo') {
-            /* Show demo image only */
+          if (obj.text.toLowerCase().includes('image') || obj.text.toLowerCase().includes('diagram')) {
+            /* Show alternative image in modal */
             btn.addEventListener('click', () => {
               modalImg.src = obj.url;
               modalImg.alt = `${title} demo image`;
+              // Temporarily disable the button after click to prevent re-click
+              btn.disabled = true;
+              setTimeout(() => btn.disabled = false, 500);
             });
+          } else if (obj.text.toLowerCase().includes('watch demo')) {
+            // For a demo video, we assume a link to an external video platform or a video file
+            // For now, it opens in a new tab, you can later replace this with a proper video player implementation if needed
+            btn.addEventListener('click', () => window.open(obj.url, '_blank'));
           } else {
             /* External link */
             btn.addEventListener('click', () => window.open(obj.url, '_blank'));
           }
+          
           modalWrap.appendChild(btn);
         });
 
